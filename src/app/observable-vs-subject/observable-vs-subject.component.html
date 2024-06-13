@@ -1,0 +1,75 @@
+<h3 class="text-center">Observable Vs Subject</h3>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <p class="text-center">Generate random values with using Observable</p>
+      <p class="text-center">
+        <b>Unicast</b> - Return different values every time
+      </p>
+      <div *ngFor="let x of observableRandomArr">
+        <p class="alert alert-primary">{{ x }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <p class="text-center">Generate random values with using Subjects</p>
+      <p class="text-center">
+        <b>Multicast</b> - Return same values every time
+      </p>
+      <div *ngFor="let x of subjectRandomArr">
+        <p class="alert alert-primary">{{ x }}</p>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-6">
+      <h3 class="text-center">Behaviour Subject</h3>
+        <code>const myBehavioursubject = new BehaviorSubject<`any>(100);</code>
+      <p>Behaviour Subject have <b>INITIAL VALUE</b></p>
+      <p>
+        Initially 100 is for sub 1, sub2 , after next emit 200 so sub3 have new
+        value after that sub1,2 receive new value,
+        <b>Sub 3 is not receive the old value</b>
+      </p>
+      <br />
+      <div *ngFor="let x of behaviourSubjectRandomArr">
+        <p class="alert alert-primary">{{ x }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h3 class="text-center">Replay Subject</h3>
+          <code>const myReplayubject = new ReplaySubject<`any>();</code>
+      <p>
+        Replay Subject have <b>Previous Values</b>
+        Initial value is <b>Optional</b>
+      </p>
+      <p>
+        Here sub1,2 receive 100 after emit 200 sub1,2 receive 200 then sub3
+        receive both 100 and 200 <b>Sub 3 receive old value also</b>
+      </p>
+      <p>its have 2 parameter <b>Buffer size, Window Time</b> <br> <i>Buffer size</i> means no of items we want to keep in the ReplaySubject
+      <br><i>Window time</i> means how long want keep items in ReplaySubject</p>
+      <div *ngFor="let x of replaySubjectRandomArr">
+        <p class="alert alert-primary">{{ x }}</p>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="container">
+    <div class="row">
+      <h3 class="text-center">Async Subject</h3>
+        <code>  const myAsyncSubject = new AsyncSubject<`any>();
+          <br>
+  myAsyncSubject.next('A');<br>
+  myAsyncSubject.next('B');<br>
+  myAsyncSubject.next('C');<br>
+
+  myAsyncSubject.complete(); // MUST it complete
+        </code>
+    <p> Async subject only returns <b>last emitted value after that complete method only,</b> if not complete method, it wont able to subscribe the data</p>
+    <div *ngFor="let x of asyncSubjectRandomArr">
+      <p class="alert alert-primary">{{ x }}</p>
+    </div>
+    </div>
+  </div>
+</div>

@@ -7,13 +7,15 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { ComponentOneComponent } from './component-one/component-one.component';
 import { ComponentTwoComponent } from './component-two/component-two.component';
 // service
-import { DataService } from './services/data-service'; 
+import { DataService } from './services/data-service';
+import { ObservableVsSubjectComponent } from './observable-vs-subject/observable-vs-subject.component'; 
 @NgModule({
   declarations: [
     AppComponent,
     RxjsComponent,
     ComponentOneComponent,
-    ComponentTwoComponent
+    ComponentTwoComponent,
+    ObservableVsSubjectComponent
   ],
   imports: [
     BrowserModule,
