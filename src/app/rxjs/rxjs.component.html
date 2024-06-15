@@ -1,65 +1,366 @@
 <b> Rxjs component!</b>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-5">
-            <pre class="text-indent">
+  <div class="row">
+    <div class="col-5">
+      <pre class="text-indent">
                 <code [innerHTML]="observable"></code>
                 Output - {{fruitName}}
             </pre>
-        </div>
-        <div class="col-5">
-            <pre class="text-indent">
+    </div>
+    <div class="col-5">
+      <pre class="text-indent">
                 <code [innerHTML]="newObservableString"></code>
             </pre>
-        </div>
-        <div class="col-2">
-            <p>Example 3</p>
-            <button class="btn btn-small btn-primary mb-3" (click)="loadObservableArr();">Click</button>
-            <div *ngFor="let x of observableDataArr">
-                <p class="alert alert-success">{{x}}</p>
-            </div>
-        </div>
     </div>
+    <div class="col-2">
+      <p>Example 3</p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="loadObservableArr()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of observableDataArr">
+        <p class="alert alert-success">{{ x }}</p>
+      </div>
+    </div>
+  </div>
 </div>
-<hr>
+<hr />
 <div class="container">
-    <h2 class="text-center">Operators</h2>
-    <div class="row">
-        <div class="col-6">
-            <h4 class="text-center">of - Operator</h4>
-            <p>Example - of operator will return all values at a time</p>
-            <button class="btn btn-small btn-primary mb-3" (click)="ofOperator();">Click</button>
-            <div *ngFor="let x of operartorOfArr">
-                <p class="alert alert-success">{{x}}</p>
-            </div>
-        </div>
-        <div class="col-6">
-            <h4 class="text-center">from - Operator</h4>
-            <p>Example - from operator will iterate each values</p>
-            <button class="btn btn-small btn-primary text-center mb-3" (click)="fromOperator();">Click</button>
-            <div *ngFor="let x of operartorFromArr">
-                <p class="alert alert-success">{{x}}</p>
-            </div>
-        </div>
+  <h2 class="text-center">Operators</h2>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">of - Operator</h4>
+      <p>Example - of operator will return all values at a time</p>
+      <button class="btn btn-small btn-primary mb-3" (click)="ofOperator()">
+        Click
+      </button>
+      <div *ngFor="let x of operartorOfArr">
+        <p class="alert alert-success">{{ x }}</p>
+      </div>
     </div>
-    <div class="row">
-        <div class="col-6">
-            <h4 class="text-center">map - Operator</h4>
-            <p>Example - map operator used to convert our data (here multiply by 10)</p>
-            <button class="btn btn-small btn-primary mb-3" (click)="mapOperator();">Click</button>
-            <div *ngFor="let x of operartorMapArr">
-                <p class="alert alert-success">{{x}}</p>
-            </div>
-        </div>
-        <div class="col-6">
-            <h4 class="text-center">filter - Operator</h4>
-            <p>Example - filter operator will filter based on condition (here display odd numbers)</p>
-            <button class="btn btn-small btn-primary text-center mb-3" (click)="filterOperator();">Click</button>
-            <div *ngFor="let x of operartorFilterArr">
-                <p class="alert alert-success">{{x}}</p>
-            </div>
-        </div>
+    <div class="col-6">
+      <h4 class="text-center">from - Operator</h4>
+      <p>Example - from operator will iterate each values</p>
+      <button
+        class="btn btn-small btn-primary text-center mb-3"
+        (click)="fromOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of operartorFromArr">
+        <p class="alert alert-success">{{ x }}</p>
+      </div>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">map - Operator</h4>
+      <p>
+        Example - map operator used to convert our data (here multiply by 10)
+      </p>
+      <button class="btn btn-small btn-primary mb-3" (click)="mapOperator()">
+        Click
+      </button>
+      <div *ngFor="let x of operartorMapArr">
+        <p class="alert alert-success">{{ x }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">filter - Operator</h4>
+      <p>
+        Example - filter operator will filter based on condition (here display
+        odd numbers)
+      </p>
+      <button
+        class="btn btn-small btn-primary text-center mb-3"
+        (click)="filterOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of operartorFilterArr">
+        <p class="alert alert-success">{{ x }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">range - Operator</h4>
+      <p>
+        Example - range operator used to emits sequence of numbers with in the
+        given range in the parameter
+      </p>
+      <button class="btn btn-small btn-primary mb-3" (click)="rangeOperator()">
+        Click
+      </button>
+      <div *ngFor="let x of operatorRangeArr">
+        <p class="alert alert-success">{{ x }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">distinct - Operator</h4>
+      <p>
+        Example - distinct operator emits only unique values in the given order
+        - check array in ts file
+      </p>
+      <button
+        class="btn btn-small btn-primary text-center mb-3"
+        (click)="distinctOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of operatorDistinctArr">
+        <p class="alert alert-success">{{ x }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">first - Operator</h4>
+      <p>Example - first operator used to emits the first value</p>
+      <button class="btn btn-small btn-primary mb-3" (click)="firstOperator()">
+        Click
+      </button>
+      <div *ngFor="let x of operatorFirstArr">
+        <p class="alert alert-success">{{ x }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">last - Operator</h4>
+      <p>Example - last operator used to emits the last value</p>
+      <button
+        class="btn btn-small btn-primary text-center mb-3"
+        (click)="lastOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of operatorLastArr">
+        <p class="alert alert-success">{{ x }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">skip - Operator</h4>
+      <p>
+        Example - skip operator skips the values from the start in the given
+        position
+      </p>
+      <button class="btn btn-small btn-primary mb-3" (click)="skipOperator()">
+        Click
+      </button>
+      <div *ngFor="let x of operatorSkipArr">
+        <p class="alert alert-primary">{{ x }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">take - Operator</h4>
+      <p>
+        Example - take operator takes values from the starting, in the given
+        position
+      </p>
+      <button
+        class="btn btn-small btn-primary text-center mb-3"
+        (click)="takeOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of operatorTakeArr">
+        <p class="alert alert-primary">{{ x }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">interval - Operator</h4>
+      <p>
+        Example - interval operator keep on trigger with the given interval of
+        time
+      </p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="intervalOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of operatorIntervalArr">
+        <p class="alert alert-primary">{{ x }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">toArray - Operator</h4>
+      <p>Example - toArray operator format data into array format</p>
+      <button
+        class="btn btn-small btn-primary text-center mb-3"
+        (click)="toArrayOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of operatorToArrayArr">
+        <p class="alert alert-primary">{{ x }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">tap - Operator</h4>
+      <p>
+        Example - tap operator used to there is modification of original data
+        (initial value never modify)
+      </p>
+      <button class="btn btn-small btn-primary mb-3" (click)="tapOperator()">
+        Click
+      </button>
+      <div *ngFor="let x of operartorTapArr">
+        <p class="alert alert-danger">{{ x }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">concat - Operator</h4>
+      <p>
+        Example - concat operator concat multiple operators , with one subscribe
+        its all the operators data
+      </p>
+      <button
+        class="btn btn-small btn-primary text-center mb-3"
+        (click)="concatOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of operartorConcatArr">
+        <p class="alert alert-danger">{{ x }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">merge - Operator</h4>
+      <p>
+        Example - merge operator used to there is modification of original data
+        (initial value never modify)
+      </p>
+      <button class="btn btn-small btn-primary mb-3" (click)="mergeOperator()">
+        Click
+      </button>
+      <div *ngFor="let x of operartorMergeArr">
+        <p class="alert alert-danger">{{ x }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">zip - Operator</h4>
+      <p>
+        Example - zip operator forms data if all the values matched in the given
+        order
+      </p>
+      <button
+        class="btn btn-small btn-primary text-center mb-3"
+        (click)="zipOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of operartorZipArr">
+        <p class="alert alert-danger">
+          {{ x.name }},{{ x.age }},{{ x.city }},{{ x.status }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">defaultIfEmpty - Operator</h4>
+      <p>
+        Example - defaultIfEmpty operator used to if there is no data or there
+        is no matched data based on the condition it will emit what we given
+      </p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="defaultIfEmptyOperator()"
+      >
+        Click
+      </button>
+      <div *ngIf="operatordefaultIfEmptyArr">
+        <p class="alert alert-danger">{{ operatordefaultIfEmptyArr }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">find - Operator</h4>
+      <p>
+        Example - find operator emits only one data with the satisfied condition
+      </p>
+      <button
+        class="btn btn-small btn-primary text-center mb-3"
+        (click)="findOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of operatorFindArr">
+        <p class="alert alert-danger">{{ x }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">findIndex - Operator</h4>
+      <p>
+        Example - findIndex operator emits only one data with the satisfied condition's position
+      </p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="findIndexOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of operatorFindIndexArr">
+        <p class="alert alert-danger">{{ x }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">count - Operator</h4>
+      <p>
+        Example - count operator emits how many counts available
+      </p>
+      <button
+        class="btn btn-small btn-primary text-center mb-3"
+        (click)="countOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of operatorCountArr">
+        <p class="alert alert-danger">{{ x }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">min - Operator</h4>
+      <p>
+        Example -  min operator emits minimum value
+      </p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="minOperator()"
+      >
+        Click
+      </button>
+      <div *ngIf="operatorMin">
+        <p class="alert alert-danger">{{ operatorMin }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">max - Operator</h4>
+      <p>
+        Example - min operator emits maximum value
+      </p>
+      <button
+        class="btn btn-small btn-primary text-center mb-3"
+        (click)="maxOperator()"
+      >
+        Click
+      </button>
+      <div *ngIf="operatorMax">
+        <p class="alert alert-danger">{{ operatorMax }}</p>
+      </div>
+    </div>
+  </div>
 </div>
-
-
