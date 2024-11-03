@@ -42,11 +42,11 @@ import {
 } from 'rxjs';
 
 @Component({
-  selector: 'app-rxjs',
-  templateUrl: './rxjs.component.html',
-  styleUrl: './rxjs.component.css',
+  selector: 'app-operators',
+  templateUrl:'./operators.component.html',
+  styleUrl: './operators.component.css',
 })
-export class RxjsComponent implements OnDestroy {
+export class OpratorsComponent implements OnDestroy {
   evensArr: any = [];
   oddsArr: any = [];
   
