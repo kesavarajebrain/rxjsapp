@@ -1,33 +1,5 @@
-<b> Rxjs component!</b>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-5">
-      <pre class="text-indent">
-                <code [innerHTML]="observable"></code>
-                Output - {{fruitName}}
-            </pre>
-    </div>
-    <div class="col-5">
-      <pre class="text-indent">
-                <code [innerHTML]="newObservableString"></code>
-            </pre>
-    </div>
-    <div class="col-2">
-      <p>Example 3</p>
-      <button
-        class="btn btn-small btn-primary mb-3"
-        (click)="loadObservableArr()"
-      >
-        Click
-      </button>
-      <div *ngFor="let x of observableDataArr">
-        <p class="alert alert-success">{{ x }}</p>
-      </div>
-    </div>
-  </div>
-</div>
-<hr />
-<div class="container">
+<div class="container mt-3">
+  <button class="btn btn-success" routerLink="/">Back</button>
   <h2 class="text-center">Operators</h2>
   <div class="row">
     <div class="col-6">
@@ -236,10 +208,7 @@
   <div class="row">
     <div class="col-6">
       <h4 class="text-center">merge - Operator</h4>
-      <p>
-        Example - merge operator used to there is modification of original data
-        (initial value never modify)
-      </p>
+      <p>Example - merge operator used to merge values from the observables</p>
       <button class="btn btn-small btn-primary mb-3" (click)="mergeOperator()">
         Click
       </button>
@@ -279,8 +248,8 @@
       >
         Click
       </button>
-      <div *ngIf="operatordefaultIfEmptyArr">
-        <p class="alert alert-danger">{{ operatordefaultIfEmptyArr }}</p>
+      <div *ngFor="let x of operatordefaultIfEmptyArr">
+        <p class="alert alert-danger">{{ x }}</p>
       </div>
     </div>
     <div class="col-6">
@@ -303,7 +272,8 @@
     <div class="col-6">
       <h4 class="text-center">findIndex - Operator</h4>
       <p>
-        Example - findIndex operator emits only one data with the satisfied condition's position
+        Example - findIndex operator emits only one data with the satisfied
+        condition's position
       </p>
       <button
         class="btn btn-small btn-primary mb-3"
@@ -317,9 +287,7 @@
     </div>
     <div class="col-6">
       <h4 class="text-center">count - Operator</h4>
-      <p>
-        Example - count operator emits how many counts available
-      </p>
+      <p>Example - count operator emits how many counts available</p>
       <button
         class="btn btn-small btn-primary text-center mb-3"
         (click)="countOperator()"
@@ -334,24 +302,20 @@
   <div class="row">
     <div class="col-6">
       <h4 class="text-center">min - Operator</h4>
-      <p>
-        Example -  min operator emits minimum value
-      </p>
+      <p>Example - min operator emits maximum value</p>
       <button
-        class="btn btn-small btn-primary mb-3"
+        class="btn btn-small btn-primary text-center mb-3"
         (click)="minOperator()"
       >
         Click
       </button>
-      <div *ngIf="operatorMin">
+      <div *ngIf="operatorMin != undefined">
         <p class="alert alert-danger">{{ operatorMin }}</p>
       </div>
     </div>
     <div class="col-6">
       <h4 class="text-center">max - Operator</h4>
-      <p>
-        Example - min operator emits maximum value
-      </p>
+      <p>Example - min operator emits maximum value</p>
       <button
         class="btn btn-small btn-primary text-center mb-3"
         (click)="maxOperator()"
@@ -360,6 +324,220 @@
       </button>
       <div *ngIf="operatorMax">
         <p class="alert alert-danger">{{ operatorMax }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">combineLatest - Operator</h4>
+      <p>
+        Example - combineLatest operator helps to use multiple observable and
+        its emits all latest values from the all observable
+      </p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="combineLatestOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of operatorCombineLatestArr">
+        <p class="alert alert-success">{{ x }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">forkJoin - Operator</h4>
+      <p>
+        Example - forkJoin operator wait with all observables to complete and
+        emit final values from the all observable
+      </p>
+      <button
+        class="btn btn-small btn-primary text-center mb-3"
+        (click)="forkJoinOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of operartorForkJoinArr">
+        <p class="alert alert-success">{{ x }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">race - Operator</h4>
+      <p>
+        Example - race operator emits which observable is completes first, that
+        only its emits and stops further emit. like racing
+      </p>
+      <button class="btn btn-small btn-primary mb-3" (click)="raceOperator()">
+        Click
+      </button>
+      <div *ngFor="let x of operatorRaceArr">
+        <p class="alert alert-success">{{ x }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">startWith - Operator</h4>
+      <p>
+        Example - startWith operator emits first, before other observable emits
+      </p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="startWithOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of operatorStartWithArr">
+        <p class="alert alert-primary">{{ x }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">withLatestFrom - Operator</h4>
+      <p>
+        Example - withLatestFromOperator operator emits the latest value from
+        the observable
+      </p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="withLatestFromOperator()"
+      >
+        Click
+      </button>
+      <div *ngIf="operatorWithLatestFromArr">
+        <p class="alert alert-primary">{{ operatorWithLatestFromArr }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">debounceTime - Operator</h4>
+      <p>
+        Example - This operator used to get all the values after the time
+        frame(staic time)
+      </p>
+      <div class="content" role="main">
+        <input
+          type="text"
+          [(ngModel)]="inputDebounceTime"
+          placeholder="Input something"
+          (input)="onSearchDebTime()"
+        />
+        <br />
+        {{ searchValue }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">debounce - Operator</h4>
+      <p>
+        Example - This operator used to get all the values after the time frame
+        (dynamic time)
+      </p>
+      <div class="content" role="main">
+        <input
+          type="text"
+          [(ngModel)]="inputDebounce"
+          placeholder="Input something"
+          (input)="onSearchDebounce()"
+        />
+        <br />
+        {{ debounceSearchVal }}
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">takeLast - Operator</h4>
+      <p>
+        Example - takeLast operator takes element from last with the given limit
+      </p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="takeLastOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of takeLastDataArr">
+        <p class="alert alert-primary">{{ x }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">takeUntil - Operator</h4>
+      <p>
+        Example - This operator used to get all the values after the time frame
+        (dynamic time)
+      </p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="takeUntilOperator()"
+      >
+        Start
+      </button>
+      &nbsp;&nbsp;
+      <button class="btn btn-small btn-danger mb-3" (click)="stopTakeUntill()">
+        Stop
+      </button>
+      <div *ngFor="let x of takeUntilData">
+        <p class="alert alert-primary">{{ x }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">iif - Operator</h4>
+      <p>Example - iif operator like a if condition</p>
+      <input
+        type="radio"
+        [(ngModel)]="radioFlag"
+        name="buildTool"
+        value="True"
+      />True
+      <input
+        type="radio"
+        [(ngModel)]="radioFlag"
+        name="buildTool"
+        value="False"
+      />False
+      <button class="btn btn-small btn-primary mb-3" (click)="iffOperator()">
+        Click
+      </button>
+      <div>
+        <p class="alert alert-primary">{{ iffOperatorData }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">distinctUntilChanged - Operator</h4>
+      <p>
+        Example - distinctUntilChanged operator emits only unique values in the
+        given order with the occurance specific - check array in ts file
+      </p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="distinctUntilChangedOptr()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of disUtlCgeOprArr">
+        <p class="alert alert-primary">{{ x }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">partition - Operator</h4>
+      <p>Example - partition operator helps to separate data based on category</p>
+      <button class="btn btn-small btn-primary mb-3" (click)="partitionOperator()">
+        Click
+      </button>
+      <div class="row">
+        <div class="col-6">
+          <div *ngFor="let x of oddsArr">
+            <p class="alert alert-success">{{ x }}</p>
+          </div>
+        </div>
+        <div class="col-6">
+          <div *ngFor="let x of evensArr">
+            <p class="alert alert-success">{{ x }}</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

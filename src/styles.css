@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+.heading{
+    text-align: center;
+}
+.desp{
+    margin-top: 2%;
+    font-weight: bold;
+}
+.desp1{
+    margin-top: 1%;
+    font-weight: lighter;
+    text-indent: 5%;
+}
+.text-indent{
+    text-indent: 5%;
+}/* You can add global styles to this file, and also import other style files */

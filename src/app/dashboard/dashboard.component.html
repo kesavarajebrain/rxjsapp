@@ -1,0 +1,115 @@
+<h1 class="heading">RXJS</h1>
+<div class="text-indent">
+    <button class="btn btn-primary" routerLink="/operators">RxJS Operators</button>
+  </div>
+<p class="desp heading">
+  Reactive programing for build new applications.<br />
+  Reactive means without our interaction doing something in the code wise,<br />
+  like observing data keep on when any changes happened it reflected in our
+  page.
+</p>
+<div class="text-indent">
+  <h3 class="pt-5">Concepts of RXJS</h3>
+  <ul>
+    <li>Obeservable</li>
+    <li>Subject, Schedulers</li>
+    <li>Operators</li>
+  </ul>
+</div>
+<div class="text-indent">
+  <h3 class="heading">Observable</h3>
+  <p class="desp1">
+    Observable is a <b>Data stream</b>. Data stream means we have a ecommerce
+    portal. User comes, order the product
+  </p>
+  <p class="desp1">
+    Order status changed over the time <b>continously changing</b>
+  </p>
+  <ol>
+    <li>Order status = order request</li>
+    <li>Order status = order process</li>
+    <li>Order status = order assinged</li>
+    <li>Order status = order placed</li>
+    <li>Order status = order dispatch</li>
+    <li>Order status = order delivered</li>
+  </ol>
+</div>
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-5">
+        <pre class="text-indent">
+                  <code [innerHTML]="observable"></code>
+                  Output - {{fruitName}}
+              </pre>
+      </div>
+      <div class="col-5">
+        <pre class="text-indent">
+                  <code [innerHTML]="newObservableString"></code>
+              </pre>
+      </div>
+      <div class="col-2">
+        <p>Example 3</p>
+        <button
+          class="btn btn-small btn-primary mb-3"
+          (click)="loadObservableArr()"
+        >
+          Click
+        </button>
+        <div *ngFor="let x of observableDataArr">
+          <p class="alert alert-success">{{ x }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr />
+<div class="text-indent">
+  <h4>Subscriber</h4>
+  <p class="desp1">
+    It will listen to the observable for data changes and updates. without
+    subscribing we are not able to get data from observable.
+  </p>
+</div>
+<hr>
+<h3 class="heading">Event Emitter</h3>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <app-component-one></app-component-one>
+      <div>
+        <code>
+          <pre [innerHTML]="refCode"></pre>
+        </code>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <app-component-two></app-component-two>
+      <div>
+        <code>
+          <pre [innerHTML]="refCodeTwo"></pre>
+        </code>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <h3 class="heading">Event Emitter</h3>
+        <p class="desp1">Event Emitter for the cross component communications. We send and emit the data via service, and subscribe to wherever want to display it.<br>
+          <b>Here we use emit()</b></p>
+        <pre>
+          <code [innerHTML]="serviceEventEmitterCode"></code>
+        </pre>
+      </div>
+      <div class="col-6">
+        <h3 class="heading">Subject</h3>
+        <p class="desp1">Subject also for the cross component communications. <b>Here we use next()</b></p>
+        <pre>
+          <code [innerHTML]="serviceSubjectCode"></code>
+        </pre>
+      </div>
+    </div>
+  </div><hr>
+  <div class="container">
+    <app-observable-vs-subject></app-observable-vs-subject>
+  </div>
