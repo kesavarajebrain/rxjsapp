@@ -1,0 +1,182 @@
+<div class="container mt-3">
+  <button class="btn btn-success" routerLink="/operators">#Back</button>
+  <div class="row">
+    <h4 class="text-center text-uppercase">Higher Order Operators</h4>
+    <p>
+      Overcome the multiple subscription
+      <strong>(subscribe inside subscribe)</strong> - to avoid this we can use
+      this higher order operators. we can easily find this operators which ends
+      in <strong>map</strong>
+    </p>
+    <p>
+      <strong>
+        <ol>
+          mergeMap
+        </ol>
+        <ol>
+          switchMap
+        </ol>
+        <ol>
+          concatMap
+        </ol>
+        <ol>
+          exhaustMap
+        </ol>
+      </strong>
+    </p>
+    <div class="col-12 mb-5">
+      <div class="row">
+        <div class="col-6">
+          <img
+            class="rounded"
+            src="../../assets/images/higher-order.jpg"
+            height="100%"
+            width="100%"
+            alt="code"
+          /><br />
+          <button
+            class="btn btn-small btn-secondary text-center mt-2"
+            (click)="getCallById()"
+          >
+            Click
+          </button>
+        </div>
+        <div class="col-6">
+          <img
+            class="rounded"
+            src="../../assets/images/higher-order-ajax.jpg"
+            height="100%"
+            width="100%"
+            alt="code"
+          /><br />
+          <button
+            class="btn btn-small btn-secondary text-center mt-2"
+            (click)="getApiCallById()"
+          >
+            Click
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 mt-3">
+      <div class="row">
+        <div class="col-6">
+          <h4 class="text-center">mergeMap- Operator</h4>
+          <p>
+            Example - this operator will subscribe and extract data and gives
+            consolidated result.<br />
+            <strong
+              >Note: this will emits the data which is completed first , not in
+              the order wise</strong
+            >
+          </p>
+          <button
+            class="btn btn-small btn-primary mb-3"
+            (click)="mergeMapOperator()"
+          >
+            Click
+          </button>
+        </div>
+        <div class="col-6">
+          <h4 class="text-center">mergeMapTo - Operator</h4>
+          <p>
+            Example - this is similar to mapTo , it will emits data based on
+            source observable
+          </p>
+          <button
+            class="btn btn-small btn-primary mb-3"
+            (click)="mergeMapToOperator()"
+          >
+            Click
+          </button>
+          <div *ngFor="let x of mergeMapToArr">
+            <p class="alert alert-success">{{ x | json }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 mt-3">
+    <div class="row">
+      <div class="col-6">
+        <h4 class="text-center">concatMap - Operator</h4>
+        <p>
+          Example - this operator will subscribe and extract data and gives
+          consolidated result.<br />
+          <strong>Note: this will emits the data in the order wise</strong>
+        </p>
+        <button
+          class="btn btn-small btn-primary mb-3"
+          (click)="concatMapOperator()"
+        >
+          Click
+        </button>
+        <div *ngFor="let x of mergeMapToArr">
+          <p class="alert alert-success">{{ x | json }}</p>
+        </div>
+      </div>
+      <div class="col-6">
+        <h4 class="text-center">concatMapTo - Operator</h4>
+        <p>
+          Example - this is similar to mergeMapTo , it will emits data based on
+          source observable order
+        </p>
+        <button
+          class="btn btn-small btn-primary mb-3"
+          (click)="concatMapToOperator()"
+        >
+          Click
+        </button>
+        <div *ngFor="let x of concatMapToArr">
+          <p class="alert alert-success">{{ x | json }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 mt-3">
+    <div class="row">
+      <div class="col-6">
+        <h4 class="text-center">exhaustMap - Operator</h4>
+        <p>
+          Example - exhaustMap will emits the only one data at the time, inner
+          observable takes the data to emit means other outer observable will
+          exhaust.
+          <br /><strong
+            >Note: Inner observable at a time it will take only one data, others
+            will exhaust</strong
+          >
+        </p>
+        <button
+          class="btn btn-small btn-primary mb-3"
+          (click)="exhaustMapOperator()"
+        >
+          Click
+        </button>
+        <div *ngFor="let x of mergeMapToArr">
+          <p class="alert alert-success">{{ x | json }}</p>
+        </div>
+      </div>
+      <div class="col-6">
+        <h4 class="text-center">switchMap - Operator</h4>
+        <p>
+          Example - outer observable emits the first data, then that data going
+          to inner obs before completing the progress second data emits from the
+          first obs means it cancel the current progress and switch to next
+          progress, it keep on switches based on first obs
+          <br /><strong
+            >Note: Its cancel all the data only latest data will take a action</strong
+          >
+        </p>
+        <button
+          class="btn btn-small btn-primary mb-3"
+          (click)="switchMapOperator()"
+        >
+          Click
+        </button>
+        <div *ngFor="let x of switchMapArr">
+          <p class="alert alert-success">{{ x | json }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

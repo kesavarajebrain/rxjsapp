@@ -1,5 +1,11 @@
 <div class="container mt-3">
-  <button class="btn btn-success" routerLink="/">Back</button>
+  <button class="btn btn-success" routerLink="/">#Back</button>
+  <button
+    class="btn btn-success float-end"
+    routerLink="/higher-order-operators"
+  >
+    Higher Order Opeartors->
+  </button>
   <h2 class="text-center">Operators</h2>
   <div class="row">
     <div class="col-6">
@@ -332,7 +338,12 @@
       <h4 class="text-center">combineLatest - Operator</h4>
       <p>
         Example - combineLatest operator helps to use multiple observable and
-        its emits all latest values from the all observable
+        its emits all latest values from the all observable once all are emited
+        a value.<br />
+        <strong
+          >Note: If one observable thrown error means it will stop the
+          operation.</strong
+        >
       </p>
       <button
         class="btn btn-small btn-primary mb-3"
@@ -460,6 +471,7 @@
       </div>
     </div>
   </div>
+  <br />
   <div class="row">
     <div class="col-6">
       <h4 class="text-center">takeUntil - Operator</h4>
@@ -523,8 +535,14 @@
     </div>
     <div class="col-6">
       <h4 class="text-center">partition - Operator</h4>
-      <p>Example - partition operator helps to separate data based on category</p>
-      <button class="btn btn-small btn-primary mb-3" (click)="partitionOperator()">
+      <p>
+        Example - partition operator helps to separate data based on category ,
+        here we seprates odds and evens and strings and numbers
+      </p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="partitionOperator()"
+      >
         Click
       </button>
       <div class="row">
@@ -539,6 +557,406 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">buffer - Operator</h4>
+      <p>
+        Example - this operator collect and stores in buffer when we click means
+        emits from the stored data; here, 1st button click we start our interval
+        by 2nd click it emits the data as far as stored in buffer
+      </p>
+      <button class="btn btn-small btn-primary mb-3" (click)="bufferOperator()">
+        1.Click here - Interval will initialize</button
+      >&nbsp;
+      <button class="btn btn-small btn-secondary mb-3" id="start-btn">
+        2.Start Emitting from buffer
+      </button>
+      <div *ngFor="let x of bufferArr">
+        <p class="alert alert-success">{{ x }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">bufferCount - Operator</h4>
+      <p>
+        Example - this operator collect and stores data in buffer when the
+        buffer count reach means it emitted from the buffer data
+      </p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="bufferCountOperator()"
+      >
+        Click
+      </button>
+      <div class="row">
+        <div *ngFor="let x of bufferCountArr">
+          <p class="alert alert-success">{{ x }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">bufferTime - Operator</h4>
+      <p>
+        Example - this operator collect and stores data in buffer when the
+        buffer time reach means it emitted the same data
+      </p>
+      <button
+        class="btn btn-small btn-success mb-3"
+        (click)="bufferTimeOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of bufferTimeArr">
+        <p class="alert alert-success">{{ x }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">takeWhile - Operator</h4>
+      <p>
+        Example - this operator will take data while satisfy the given condition
+      </p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="takeWhileOperator()"
+      >
+        Click
+      </button>
+      <div class="row">
+        <div *ngFor="let x of takeWhileArr">
+          <p class="alert alert-success">{{ x }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">skipLast - Operator</h4>
+      <p>Example - this operator skips from the last with the given count</p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="skipLastOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of skipLastOperatorArr">
+        <p class="alert alert-success">{{ x }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">skipUntil - Operator</h4>
+      <p>
+        Example - its skips the values until the btn click after the view init
+      </p>
+      <button class="btn btn-small btn-secondary mb-3" id="skip-until">
+        Click
+      </button>
+      <div class="row">
+        <div *ngFor="let x of skipUntilArr">
+          <p class="alert alert-success">{{ x }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">skipWhile - Operator</h4>
+      <p>
+        Example - this operator skips the value while satisfy based on condition
+      </p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="skipWhileOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of skipWhileArr">
+        <p class="alert alert-success">{{ x }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">distinctUntilKeyChanged - Operator</h4>
+      <p>
+        Example - this operator deals with the objects and emits only unique
+        values in the given order with the occurance specific - check array in
+        ts file
+      </p>
+      <button
+        class="btn btn-small btn-secondary mb-3"
+        (click)="distinctUntilKeyChangedOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of distinctUntilKeyChangedOpArr">
+        <p class="alert alert-primary">{{ x.name }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">sample - Operator</h4>
+      <p>
+        Example -this operator emits the most recent data from the source
+        obeservable with the given the time frame
+      </p>
+      <button class="btn btn-small btn-primary mb-3" (click)="sampleOperator()">
+        Click
+      </button>
+      <div *ngFor="let x of sampleOprArr">
+        <p class="alert alert-primary">{{ x }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">ElementAt - Operator</h4>
+      <p>Example - this operator emits the element position</p>
+      <button
+        class="btn btn-small btn-secondary mb-3"
+        (click)="elementAtOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of elementAtOperatorArr">
+        <p class="alert alert-primary">{{ x }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">ignoreElements - Operator</h4>
+      <p>Example -this operator ignore all the elemnts of the obeservable</p>
+      <button
+        class="btn btn-small btn-success mb-3"
+        (click)="ignoreElementsOperator()"
+      >
+        Click
+      </button>
+      <div *ngIf="ignoreMsg">
+        <p class="alert alert-primary">{{ ignoreMsg }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">single - Operator</h4>
+      <p>Example - this operator only emits the single data</p>
+      <button
+        class="btn btn-small btn-secondary mb-3"
+        (click)="singleOperator()"
+      >
+        Click
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">mapTo - Operator</h4>
+      <p>
+        Example -this opeartor emits the given value for each actual observable
+      </p>
+      <button class="btn btn-small btn-primary mb-3" (click)="mapToOperator()">
+        Click
+      </button>
+      <!-- <div *ngIf="mapToMsg">
+        <p class="alert alert-primary">{{ mapToMsg }}</p>
+      </div> -->
+      <div *ngFor="let x of mapToArr">
+        <p class="alert alert-primary">{{ x }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">ajax - Operator</h4>
+      <p>Example - this operator helps for making HTTP calls</p>
+      <button class="btn btn-small btn-primary mb-3" (click)="ajaxOperator()">
+        Click
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">retry - Operator</h4>
+      <p>
+        Example - this operator if any error occured means retry the operation
+        with given time.
+      </p>
+      <button class="btn btn-small btn-primary mb-3" (click)="retryOperator()">
+        Click
+      </button>
+      <div *ngFor="let x of retryOperatorArr">
+        <p class="alert alert-secondary">{{ x }}</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">timer - Operator</h4>
+      <p>
+        Example - Timer starts after the given time and emit the data and
+        complete
+      </p>
+      <button
+        class="btn btn-small btn-secondary mb-3"
+        (click)="timerOperator()"
+      >
+        Click
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">reduce - Operator</h4>
+      <p>
+        Example - this operator emits the accumulated value when the source
+        observable gets complete.
+      </p>
+      <button class="btn btn-small btn-success mb-3" (click)="reduceOperator()">
+        Click
+      </button>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">scan - Operator</h4>
+      <p>
+        Example - this operator emits the accumulated value when the source
+        observable while emiting each value
+      </p>
+      <button class="btn btn-small btn-primary mb-3" (click)="scanOperator()">
+        Click
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">isEmpty - Operator</h4>
+      <p>
+        Example - this operator emits the boolean value based on the source have
+        value or not.
+      </p>
+      <button
+        class="btn btn-small btn-success mb-3"
+        (click)="isEmptyOperator()"
+      >
+        Click
+      </button>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">every - Operator</h4>
+      <p>
+        Example - this operator emits the boolean value, its check each value of
+        the source observable satisfy the given condition
+      </p>
+      <button class="btn btn-small btn-primary mb-3" (click)="everyOperator()">
+        Click
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">delay - Operator</h4>
+      <p>Example - this operator delay the source observable emitting time.</p>
+      <button
+        class="btn btn-small btn-secondary mb-3"
+        (click)="delayOperator()"
+      >
+        Click
+      </button>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">combineLatestAll - Operator</h4>
+      <p>
+        Example - this operator emits the boolean value, its check each value of
+        the source observable satisfy the given condition
+      </p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="combineLatestAllOperator()"
+      >
+        Click
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">concatAll - Operator</h4>
+      <p>
+        Example - this operator concat all the source observable values and
+        emits the data in the source observable order wise.
+      </p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="concatAllOperator()"
+      >
+        Click
+      </button>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">exhaustAll - Operator</h4>
+      <p>
+        Example - this operator acts like exhaustMap , like at a time only one
+        obs will get emit after values got exhaust
+      </p>
+      <button
+        class="btn btn-small btn-secondary mb-3"
+        (click)="exhaustAllOperator()"
+      >
+        Click
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">switchAll - Operator</h4>
+      <p>
+        Example - this operator acts as switchMap, its keep switching if any
+        upcoming value is means , it will switch and continue the progress
+      </p>
+      <button
+        class="btn btn-small btn-success mb-3"
+        (click)="switchAllOperator()"
+      >
+        Click
+      </button>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">mergeAll - Operator</h4>
+      <p>Example - this will emits the merged data from the outer obs</p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="mergeAllOperator()"
+      >
+        Click
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center">groupBy - Operator</h4>
+      <p>
+        Example - this operator grouping based on condition and return the data
+      </p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="groupByOperator()"
+      >
+        Click
+      </button>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">pairwise - Operator</h4>
+      <p>
+        Example - this operator emits the data pair wise (previous and current
+        pair) <br />
+        <strong
+          >if only one data in the obs means it wont emit any data its need
+          atleast both values , directly emit the complete in this case
+        </strong>
+      </p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="pairwiseOperator()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of pairwiseOperatorArr">
+        <p class="alert alert-primary">{{ x }}</p>
+      </div>
+      
     </div>
   </div>
 </div>

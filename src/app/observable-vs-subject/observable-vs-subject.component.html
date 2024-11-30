@@ -4,7 +4,7 @@
     <div class="col-6">
       <p class="text-center">Generate random values with using Observable</p>
       <p class="text-center">
-        <b>Unicast</b> - Return different values every time
+        <b>Unicast / Cold observable</b> - Return different values every time
       </p>
       <div *ngFor="let x of observableRandomArr">
         <p class="alert alert-primary">{{ x }}</p>
@@ -13,7 +13,7 @@
     <div class="col-6">
       <p class="text-center">Generate random values with using Subjects</p>
       <p class="text-center">
-        <b>Multicast</b> - Return same values every time
+        <b>Multicast / Hot observable</b> - Return same values every time
       </p>
       <div *ngFor="let x of subjectRandomArr">
         <p class="alert alert-primary">{{ x }}</p>

@@ -1,8 +1,11 @@
-import { Component, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { ajax } from 'rxjs/ajax';
 import {
-  BehaviorSubject,
   Observable,
   Subject,
+  buffer,
+  bufferCount,
+  bufferTime,
   combineLatest,
   concat,
   count,
@@ -30,26 +33,50 @@ import {
   race,
   range,
   skip,
+  skipLast,
+  skipUntil,
   startWith,
-  switchMap,
   take,
   takeLast,
   takeUntil,
+  takeWhile,
   tap,
   toArray,
   withLatestFrom,
   zip,
+  skipWhile,
+  distinctUntilKeyChanged,
+  sample,
+  elementAt,
+  ignoreElements,
+  single,
+  mapTo,
+  retry,
+  timer,
+  reduce,
+  scan,
+  isEmpty,
+  every,
+  delay,
+  combineLatestAll,
+  concatAll,
+  exhaustAll,
+  switchAll,
+  mergeAll,
+  groupBy,
+  mergeMap,
+  pairwise,
 } from 'rxjs';
 
 @Component({
   selector: 'app-operators',
-  templateUrl:'./operators.component.html',
+  templateUrl: './operators.component.html',
   styleUrl: './operators.component.css',
 })
-export class OpratorsComponent implements OnDestroy {
+export class OpratorsComponent implements OnDestroy, AfterViewInit {
   evensArr: any = [];
   oddsArr: any = [];
-  
+
   private searchSubject = new Subject<string>();
   private searchDebounceSubject = new Subject<string>();
   private readonly debounceTimeMs = 300; // Set the debounce time (in milliseconds)
@@ -104,12 +131,28 @@ export class OpratorsComponent implements OnDestroy {
   takeLastDataArr?: any = [];
   radioFlag: any;
   iffOperatorData: any;
-  takeUntilData: any =[];
+  takeUntilData: any = [];
   disUtlCgeOprArr: any = [];
-  
+  bufferArr: any[] = [];
+  showBuffer$!: Observable<Event>;
+  bufferCountArr: any[] = [];
+  bufferTimeArr: any[] = [];
+  takeWhileArr: any[] = [];
+  skipLastOperatorArr: any[] = [];
+  skipUntilEvent$!: Observable<Event>;
+  skipUntilArr: any[] = [];
+  distinctUntilKeyChangedOpArr: any[] = [];
 
   // of operator its also observable
   ofObservable = of(this.ofArray);
+  skipWhileArr: any[] = [];
+  sampleOprArr: any[] = [];
+  elementAtOperatorArr: any[] = [];
+  ignoreMsg!: string;
+  mapToMsg!: string;
+  mapToArr: any[] = [];
+  retryOperatorArr: any[] = [];
+  pairwiseOperatorArr: any[]=[];
   ofOperator() {
     this.ofObservable.subscribe((val: any) => {
       this.operartorOfArr.push(val);
@@ -175,6 +218,19 @@ export class OpratorsComponent implements OnDestroy {
     distinctArr.pipe(distinct()).subscribe((val) => {
       this.operatorDistinctArr.push(val);
     });
+
+    // distinct by key value
+    var students = [
+      { id: 1, name: 'Ravi' },
+      { id: 1, name: 'Rani' },
+      { id: 2, name: 'Kumar' },
+      { id: 3, name: 'Usha' },
+      { id: 4, name: 'Kim' },
+      { id: 5, name: 'Raja' },
+    ];
+    from(students)
+      .pipe(distinct((x) => x.id))
+      .subscribe((a) => console.log(a));
   }
 
   // first operator
@@ -317,7 +373,7 @@ export class OpratorsComponent implements OnDestroy {
     // this operator used to if there is no data or there is no matched data based on the condition it will emit what we given
     defaultArr
       .pipe(
-        filter((x) => x > 1), // change filter condition, here x > 1 means , 2,3 are greater than 1 so 2 and 3 will emit
+        filter((x) => x < 1), // change filter condition, here x > 1 means , 2,3 are greater than 1 so 2 and 3 will emit
         defaultIfEmpty('There is no matches or its empty')
       )
       .subscribe((val) => {
@@ -527,8 +583,9 @@ export class OpratorsComponent implements OnDestroy {
 
   // iff operator
   iffOperator() {
-    console.log(this.radioFlag)
-    const firstOrSecond = iif(() => this.radioFlag,
+    console.log(this.radioFlag);
+    const firstOrSecond = iif(
+      () => this.radioFlag,
       of('True is selected'),
       of('False is selected')
     );
@@ -539,38 +596,524 @@ export class OpratorsComponent implements OnDestroy {
   }
 
   //distinctUntilChanged operator
-  distinctUntilChangedOptr(){
-    const disUtlCgeOpr = of(1,2,2,3,3,3,4,4,4,4,5,5,5,5,5,1,2);
-    disUtlCgeOpr.pipe(distinctUntilChanged()).subscribe((val)=>{
+  distinctUntilChangedOptr() {
+    const disUtlCgeOpr = of(1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5, 1, 2);
+    disUtlCgeOpr.pipe(distinctUntilChanged()).subscribe((val) => {
       console.log(val);
-      this.disUtlCgeOprArr.push(val)
-    })
+      this.disUtlCgeOprArr.push(val);
+    });
   }
 
   // partitionOperator
   // this operator helps to separate data based on category
-  partitionOperator(){
-    const partitionData = of(1,2,3,4,5)
-    const [evens$, odds$] = partition(partitionData, value => value % 2 === 0);
+  partitionOperator() {
+    const partitionData = of(1, 2, 3, 4, 5);
+    const [evens$, odds$] = partition(
+      partitionData,
+      (value) => value % 2 === 0
+    );
     evens$.subscribe((evens) => {
-      this.evensArr.push(evens)
-      console.log(evens)
-    })
+      this.evensArr.push(evens);
+      console.log(evens);
+    });
     odds$.subscribe((odds) => {
-      this.oddsArr.push(odds)
-      console.log(odds)
-    })
+      this.oddsArr.push(odds);
+      console.log(odds);
+    });
 
-    const partitionDataArr = ["apple", 10, "banana", 20, "cherry"];
-    const [strings$, numbers$] = partition(partitionDataArr, value =>  typeof value === "number");
+    const partitionDataArr = ['apple', 10, 'banana', 20, 'cherry'];
+    const [strings$, numbers$] = partition(
+      partitionDataArr,
+      (value) => typeof value === 'number'
+    );
     strings$.subscribe((strings) => {
-      this.evensArr.push(strings)
-      console.log(strings)
-    })
+      this.evensArr.push(strings);
+      console.log(strings);
+    });
     numbers$.subscribe((odds) => {
-      this.oddsArr.push(odds)
-      console.log(odds)
-    })
+      this.oddsArr.push(odds);
+      console.log(odds);
+    });
+  }
+
+  // buffer operator
+  // this operator collect and stores data in buffer when we click means emits the stored data
+  ngAfterViewInit() {
+    this.showBuffer$ = fromEvent(
+      document.getElementById('start-btn')!,
+      'click'
+    );
+
+    // skip until
+    this.skipUntilEvent$ = fromEvent(
+      document.getElementById('skip-until')!,
+      'click'
+    );
+    // its skips the values until the btn click after the view init
+    interval(500)
+      .pipe(skipUntil(this.skipUntilEvent$))
+      .subscribe((data) => {
+        this.skipUntilArr.push(data);
+      });
+  }
+
+  bufferOperator() {
+    interval(1000)
+      .pipe(buffer(this.showBuffer$))
+      .subscribe((data: number[]) => {
+        this.bufferArr.push(data);
+      });
+  }
+
+  // bufferCount - operator
+  // this operator collect and stores data in buffer when the buffer count reach means it emitted the same data
+  bufferCountOperator() {
+    interval(1000)
+      .pipe(
+        bufferCount(3) // here we can give seceond parameter that is optional , like bufferCount(3,2) its getting the from the existing data based on position
+      )
+      .subscribe((data: number[]) => {
+        this.bufferCountArr.push(data);
+      });
+  }
+
+  //bufferTime - operator
+  // this operator collect and stores data in buffer when the buffer time reach means it emitted the same data
+  bufferTimeOperator() {
+    interval(1000)
+      .pipe(bufferTime(3000))
+      .subscribe((data: number[]) => {
+        this.bufferTimeArr.push(data);
+      });
+  }
+
+  // takeWhile - operator
+  // this operator will take data while satisfy the given condition
+  takeWhileOperator() {
+    interval(1000)
+      .pipe(takeWhile((a) => a < 5)) // here we can give seceond parameter that is optional like takeWhile((a)=>a<5,true) it means till 5 its get print
+      .subscribe((data) => {
+        this.takeWhileArr.push(data);
+        console.log(data);
+      });
+  }
+
+  // skipLast - operator
+  // this operator skips from the last with the given count
+  skipLastOperator() {
+    const skipArr = of('A', 'B', 'C', 'D', 'E', 'F');
+    skipArr.pipe(skipLast(3)).subscribe((data) => {
+      this.skipLastOperatorArr.push(data);
+    });
+  }
+
+  //skipWhile - operator
+  // this operator skips the value while satisfy based on condition
+  skipWhileOperator() {
+    of(1, 2, 3, 4, 5, 1, 2, 6) // Once the predicate is true, it will not be called again. so 3,4,5 print after that it wont check further values
+      .pipe(skipWhile((a) => a < 3))
+      .subscribe((data) => {
+        this.skipWhileArr.push(data);
+        console.log(data);
+      });
+  }
+
+  //distinctUntilKeyChanged - operator
+  //this operator deals with the objects and emits only unique values in the given order with the occurance specific - check array in ts file
+  distinctUntilKeyChangedOperator() {
+    const friends = [
+      { id: 1, name: 'Kesav' },
+      { id: 2, name: 'Kesav' },
+      { id: 3, name: 'Ezhil' },
+      { id: 4, name: 'Priya' },
+      { id: 5, name: 'Rani' },
+      { id: 6, name: 'Kesav' },
+    ];
+
+    from(friends)
+      .pipe(distinctUntilKeyChanged('name'))
+      .subscribe((data) => {
+        this.distinctUntilKeyChangedOpArr.push(data);
+        console.log(data);
+      });
+  }
+
+  // sample - operator
+  // this operator emits the most recent data from the source obeservable with the given the time frame
+  sampleOperator() {
+    interval(1000)
+      .pipe(sample(interval(3000)))
+      .subscribe((data) => {
+        console.log(data);
+        this.sampleOprArr.push(data);
+      });
+  }
+
+  // elementAt - operator
+  // this operator emits the element position
+  elementAtOperator() {
+    const elementAtOperator = of(1, 2, 3, 4, 5, 6);
+    elementAtOperator.pipe(elementAt(6, 10)).subscribe((data) => {
+      // two arguments its have 1st one elementAt position and 2nd one is default value
+      console.log(data);
+      this.elementAtOperatorArr.push(data);
+    });
+  }
+
+  //ignoreElements - operator
+  // this operator ignore all the elemnts of the obeservable
+  ignoreElementsOperator() {
+    of(1, 2, 3, 4)
+      .pipe(ignoreElements())
+      .subscribe(
+        (data) => {
+          console.log(data);
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          this.ignoreMsg = 'Completed';
+          console.log('Completed');
+        }
+      );
+
+    interval(1000)
+      .pipe(take(10), ignoreElements())
+      .subscribe(
+        (data) => {
+          console.log(data);
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          this.ignoreMsg = 'Interval Completed';
+          console.log('Interval Completed');
+        }
+      );
+  }
+
+  // single - operator
+  // this operator only emits the single data
+  singleOperator() {
+    of(8) // if we add more in the of observable , it will throw err
+      .pipe(single())
+      .subscribe(
+        (data) => {
+          console.log(data);
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          console.log(`Completed`);
+        }
+      );
+  }
+
+  //mapTo - operator
+  // this opeartor emits the given value for each actual observable
+  mapToOperator() {
+    // mapTo is deprecated
+    // of(12, 13, 14, 15)
+    //   .pipe(map(() => 'default string is emit for each actual observable'))
+    //   .subscribe((data) => {
+    //     console.log(data);
+    //     this.mapToMsg = data;
+    //   });
+
+    interval(1000)
+      .pipe(map(() => 'default string is emit for each actual observable'))
+      .subscribe((data) => {
+        console.log(data);
+        this.mapToArr.push(data);
+      });
+  }
+
+  // ajax - operator
+  // this operator helps for making HTTP calls
+  ajaxOperator() {
+    // get api call - it will return whole object
+    ajax('https://jsonplaceholder.typicode.com/posts').subscribe((data) => {
+      console.log(data);
+      console.log(data.response);
+    });
+
+    // get api call - it will return only the response
+    ajax
+      .getJSON('https://jsonplaceholder.typicode.com/posts')
+      .subscribe((data) => {
+        console.log(data);
+      });
+
+    // post api call
+    ajax
+      .post('https://jsonplaceholder.typicode.com/posts', {
+        Headers: {
+          'Content-Type': 'application/json',
+          token: 'xyz',
+        },
+        body: {
+          name: 'test',
+        },
+      })
+      .subscribe((data) => {
+        console.log(data);
+      });
+  }
+
+  //retry - operator
+  // this operator if any error occured means retry the operation with given time,
+  retryOperator() {
+    let obeservable$ = new Observable((observer) => {
+      observer.next(1);
+      observer.next(2);
+      observer.error('err');
+    });
+
+    obeservable$
+      .pipe(
+        tap(() =>
+          console.log(
+            'Observer starts emiting if error occured means it will retry the given count'
+          )
+        ),
+        retry(1)
+      )
+      .subscribe((data) => {
+        console.log(data);
+        this.retryOperatorArr.push(data);
+      });
+  }
+
+  // timer - operator
+  //
+  timerOperator() {
+    //first parameter start emit with one second, second parameter(optional) will keep on emit further data in two seconds
+    timer(1000, 2000)
+      .pipe(
+        tap(() =>
+          console.log(
+            'Timer starts after the given time and emit the data and complete'
+          )
+        )
+      )
+      .subscribe((data) => {
+        console.log(data);
+      });
+  }
+
+  //reduce - operator
+  // this operator emits the accumulated value when the source observable gets complete
+  reduceOperator() {
+    let source$ = of(1, 2, 3, 4, 5);
+    source$
+      .pipe(
+        reduce((accumulator: any, value: any) => {
+          console.log(accumulator);
+          console.log(value);
+          return accumulator + value;
+        })
+      )
+      .subscribe((data) => {
+        console.log('Result' + data);
+      });
+  }
+
+  //scan - operator
+  // this operator emits the accumulated value when the source observable while emiting each value
+  scanOperator() {
+    let source$ = of(1, 2, 3, 4, 5);
+    source$
+      .pipe(
+        scan((accumulator: any, value: any) => {
+          console.log(accumulator);
+          console.log(value);
+          return accumulator + value;
+        })
+      )
+      .subscribe((data) => {
+        console.log('Result' + data);
+      });
+  }
+
+  // isEmpty - operator
+  // this operator emits the boolean value based on the source have value or not
+  isEmptyOperator() {
+    let source$ = of();
+    source$.pipe(isEmpty()).subscribe((data) => {
+      console.log(data);
+    });
+  }
+
+  // every- operator
+  // this operator emits the boolean value, its check each value of the source observable satisfy the given condition
+  everyOperator() {
+    let source$ = of(1, 2, 3, 4, 5, 6, 7);
+    source$.pipe(every((e) => e < 5)).subscribe((data) => {
+      console.log(data);
+    });
+  }
+
+  // delay operator
+  // this operator delay the source observable emitting time
+  delayOperator() {
+    let source$ = of(1, 2, 3, 4);
+    source$.pipe(delay(2000)).subscribe((data) => {
+      console.log(data);
+    });
+  }
+
+  // combineLatestAll - operator
+  // this operator gets all the values from the each observable and emits the final data
+  combineLatestAllOperator() {
+    let source$ = of(1, 'b');
+    source$
+      .pipe(
+        map(() => {
+          return interval(1000).pipe(take(2));
+        }),
+        combineLatestAll()
+      )
+      .subscribe((data) => {
+        console.log(data);
+      });
+    // combineLatest
+    let source1$ = of(1, 'b');
+    let source2$ = interval(1000).pipe(take(2));
+    combineLatest(source1$, source2$).subscribe((data) => {
+      console.log('Combine', data);
+    });
+  }
+
+  // concatAll - operator
+  //this operator concat all the source(outer) observable values and emits the data in the source observable order wise
+  concatAllOperator() {
+    let source$ = of(2, 4, 5);
+    source$
+      .pipe(
+        map((value) => {
+          return interval(1000).pipe(take(value));
+        }),
+        concatAll()
+      )
+      .subscribe((data) => {
+        console.log(data);
+      });
+  }
+
+  // exhaustAll - operator
+  //this operator acts like exhaustMap , like at a time only one obs will get emit after values got exhaust
+  // here we send the value from outer obs to the inner obs and run the interval based on the outer obs value
+  exhaustAllOperator() {
+    let source$ = of(4, 2, 5);
+    source$
+      .pipe(
+        map((value) => {
+          return interval(1000).pipe(
+            filter((val) => val > 0), // here we filter
+            take(value) // taking value based on outer obs
+          );
+        }),
+        exhaustAll()
+      )
+      .subscribe((data) => {
+        console.log(data);
+      });
+  }
+
+  // switchAll - operator
+  // this operator acts as switchMap, its keep switching if any upcoming value is means , it will switch and continue the progress
+  switchAllOperator() {
+    let source$ = of(4, 2, 5); // here last value is 5 so before 4,2 wont progress
+    source$
+      .pipe(
+        map((value) => {
+          return interval(1000).pipe(
+            filter((val) => val > 0), // here we filter
+            take(value) // taking value based on outer obs
+          );
+        }),
+        switchAll()
+      )
+      .subscribe((data) => {
+        console.log(data); //
+      });
+  }
+
+  // mergeAll - operator
+  // this will emits the merged data from the outer obs
+  mergeAllOperator() {
+    let source$ = of(2, 4, 5); // here this values going to the inner obs and take the the values
+    source$
+      .pipe(
+        map((value) => {
+          return interval(1000).pipe(
+            take(value) // taking value based on outer obs
+          );
+        }),
+        mergeAll()
+      )
+      .subscribe((data) => {
+        console.log(data); //
+      });
+  }
+
+  //  groupBy - operator
+  // this operator grouping based on condition and return the data
+  groupByOperator() {
+    let source$ = [
+      { id: 1, attempts: 2 },
+      { id: 2, attempts: 3 },
+      { id: 2, attempts: 18 },
+      { id: 2, attempts: 1 },
+      { id: 2, attempts: 4 },
+      { id: 1, attempts: 2 },
+      { id: 3, attempts: 5 },
+      { id: 3, attempts: 5 },
+      { id: 3, attempts: 5 },
+    ];
+    from(source$) // outer obs
+      .pipe(
+        groupBy((val: any) => val.id), // here we group by id
+        mergeMap(
+          (
+            group$ // here higher order obs used
+          ) =>
+            group$.pipe(
+              reduce((accumulator, currentvalue) => {
+                accumulator.attempts =
+                  accumulator.attempts + currentvalue.attempts; // here we calculate attempts
+                return accumulator;
+              }),
+              toArray() // here send data with array format
+            )
+        )
+      )
+      .subscribe((data) => console.log(data));
+  }
+
+  // pairwise - operator
+  // this operator emits the data pair wise (previous and current pair)
+  // if only one data in the obs means it wont emit any data its need atleast both values , directly emit the complete in this case 
+  pairwiseOperator() {
+    interval(1000)
+      .pipe(pairwise(), take(3))
+      .subscribe({
+        next:(data)=>{
+          console.log(data);
+          this.pairwiseOperatorArr.push(data)
+        },
+        error:(error)=>{
+          console.log(error);
+        },
+        complete:()=>{
+          console.log("completed");
+        }
+      }
+        
+      );
   }
 
   ngOnDestroy() {

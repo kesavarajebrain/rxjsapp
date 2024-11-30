@@ -9,7 +9,8 @@ import { ComponentTwoComponent } from './component-two/component-two.component';
 // service
 import { DataService } from './services/data-service';
 import { ObservableVsSubjectComponent } from './observable-vs-subject/observable-vs-subject.component';
-import { DashboardComponent } from './dashboard/dashboard.component'; 
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { HigherOrderOperatorsComponent } from './higher-order-operators/higher-order-operators.component'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +18,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ComponentOneComponent,
     ComponentTwoComponent,
     ObservableVsSubjectComponent,
-    DashboardComponent
+    DashboardComponent,
+    HigherOrderOperatorsComponent
   ],
   imports: [
     BrowserModule,
