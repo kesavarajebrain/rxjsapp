@@ -1,7 +1,13 @@
 <h1 class="heading">RXJS</h1>
 <div class="text-indent">
-    <button class="btn btn-primary" routerLink="/operators">RxJS Operators</button>
-  </div>
+  <button class="btn btn-primary" routerLink="/operators">
+    RxJS Operators
+  </button>
+  <button class="btn btn-sm btn-success float-end m-2">
+    <a target="_blank" class="text-decoration-none text-light" href="https://github.com/kesavarajebrain/rxjsapp"> Git Repo
+    </a>
+  </button>
+</div>
 <p class="desp heading">
   Reactive programing for build new applications.<br />
   Reactive means without our interaction doing something in the code wise,<br />
@@ -35,33 +41,33 @@
   </ol>
 </div>
 <div class="container-fluid">
-    <div class="row">
-      <div class="col-5">
-        <pre class="text-indent">
+  <div class="row">
+    <div class="col-5">
+      <pre class="text-indent">
                   <code [innerHTML]="observable"></code>
                   Output - {{fruitName}}
               </pre>
-      </div>
-      <div class="col-5">
-        <pre class="text-indent">
+    </div>
+    <div class="col-5">
+      <pre class="text-indent">
                   <code [innerHTML]="newObservableString"></code>
               </pre>
-      </div>
-      <div class="col-2">
-        <p>Example 3</p>
-        <button
-          class="btn btn-small btn-primary mb-3"
-          (click)="loadObservableArr()"
-        >
-          Click
-        </button>
-        <div *ngFor="let x of observableDataArr">
-          <p class="alert alert-success">{{ x }}</p>
-        </div>
+    </div>
+    <div class="col-2">
+      <p>Example 3</p>
+      <button
+        class="btn btn-small btn-primary mb-3"
+        (click)="loadObservableArr()"
+      >
+        Click
+      </button>
+      <div *ngFor="let x of observableDataArr">
+        <p class="alert alert-success">{{ x }}</p>
       </div>
     </div>
   </div>
-  <hr />
+</div>
+<hr />
 <div class="text-indent">
   <h4>Subscriber</h4>
   <p class="desp1">
@@ -69,7 +75,7 @@
     subscribing we are not able to get data from observable.
   </p>
 </div>
-<hr>
+<hr />
 <h3 class="heading">Event Emitter</h3>
 <div class="container">
   <div class="row">
@@ -91,25 +97,32 @@
     </div>
   </div>
 </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-6">
-        <h3 class="heading">Event Emitter</h3>
-        <p class="desp1">Event Emitter for the cross component communications. We send and emit the data via service, and subscribe to wherever want to display it.<br>
-          <b>Here we use emit()</b></p>
-        <pre>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <h3 class="heading">Event Emitter</h3>
+      <p class="desp1">
+        Event Emitter for the cross component communications. We send and emit
+        the data via service, and subscribe to wherever want to display it.<br />
+        <b>Here we use emit()</b>
+      </p>
+      <pre>
           <code [innerHTML]="serviceEventEmitterCode"></code>
         </pre>
-      </div>
-      <div class="col-6">
-        <h3 class="heading">Subject</h3>
-        <p class="desp1">Subject also for the cross component communications. <b>Here we use next()</b></p>
-        <pre>
+    </div>
+    <div class="col-6">
+      <h3 class="heading">Subject</h3>
+      <p class="desp1">
+        Subject also for the cross component communications.
+        <b>Here we use next()</b>
+      </p>
+      <pre>
           <code [innerHTML]="serviceSubjectCode"></code>
         </pre>
-      </div>
     </div>
-  </div><hr>
-  <div class="container">
-    <app-observable-vs-subject></app-observable-vs-subject>
   </div>
+</div>
+<hr />
+<div class="container">
+  <app-observable-vs-subject></app-observable-vs-subject>
+</div>
